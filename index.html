@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Geist+Mono:wght@400;500&family=Geist:wght@300..600&family=Unbounded:wght@800;900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
@@ -53,9 +53,9 @@
   <div class="about-grid">
     <!-- placeholder copy: Ruchir will supply the final text -->
     <div class="body-copy fade">
-      <p class="lead">Third-year Industrial Engineering &amp; Operations Research undergraduate at IIT Bombay, <em>ranked second in the department</em>, minoring in Statistics and CMInDS.</p>
+      <p class="lead">Third-year Industrial Engineering &amp; Operations Research undergraduate at IIT Bombay, <em>ranked second in the department</em>, minoring in Statistics and AI &amp; Data Science.</p>
       <p>My work sits where optimization meets data. I like problems that start as a messy real-world question and end as a model you can trust — whether that is a mixed-integer program, a stochastic process or a neural network.</p>
-      <p>At CSALT, with Prof. Preethi Jyothi, I research fair evaluation of large language models across Indian languages. I have also built graph-based hallucination detectors, trained binarised neural networks with integer programming, and written telemetry firmware for the IITB Rocket Team.</p>
+      <p>At CSALT, with Prof. Preethi Jyothi, I research how fairly we can measure what large language models understand in Indian languages. Before that I classified dialects from speech at TCAAI, trained binarised neural networks with set-cover integer programming, built trading engines with the Quant Club, and flew avionics to 10,000 ft with the IIT Bombay Rocket Team.</p>
       <p>Outside research I teach — as a teaching assistant for Probability, Calculus and Optimization — and represent IEOR's undergraduates as the department's Undergraduate Representative.</p>
     </div>
     <aside class="profile crosshair fade">
@@ -69,8 +69,8 @@
         <dt>CPI</dt><dd>9.73 / 10</dd>
         <dt>Rank</dt><dd>2nd in department</dd>
       </dl>
-      <a data-magnetic class="btn solid" href="#">View resume <span>→</span></a>
-      <a data-magnetic class="btn" href="#">Download resume <span class="label">PDF ↓</span></a>
+      <a data-magnetic class="btn solid" href="Ruchir_Barhate_Resume.pdf" target="_blank" rel="noopener">View resume <span>→</span></a>
+      <a data-magnetic class="btn" href="Ruchir_Barhate_Resume.pdf" download>Download resume <span class="label">PDF ↓</span></a>
     </aside>
   </div>
 </section>
@@ -80,7 +80,7 @@
   <div class="xp-head section-pad">
     <div class="label">[ <b>02</b> / 04 ] · Experience</div>
     <h2 class="big"><span class="reveal"><span>Where I've</span></span><span class="reveal ol"><span>worked</span></span></h2>
-    <div class="xp-side"><p class="label xp-count"><b>04</b> roles · 2024 — now</p><button data-magnetic class="expand" type="button" data-expand="experience">Expand <span>↗</span></button></div>
+    <div class="xp-side"><p class="label xp-count"><b>05</b> roles · 2024 — now</p><button data-magnetic class="expand" type="button" data-expand="experience">Expand <span>↗</span></button></div>
   </div>
   <ol class="xp-list">
     <li class="xp-row fade">
@@ -97,24 +97,38 @@
     </li>
     <li class="xp-row fade">
       <span class="xp-i">03</span>
-      <div class="xp-main"><h3>Undergraduate Researcher</h3><div class="xp-org">CSALT, IIT Bombay</div></div>
+      <div class="xp-main"><h3>Undergraduate Researcher</h3><div class="xp-org">CSALT, IIT Bombay · Prof. Preethi Jyothi</div></div>
       <div class="xp-when"><span class="chip on">Ongoing</span><span class="label">Jul 2026 — present</span></div>
-      <div class="xp-more"><p>Fair evaluation of large language models on Indian languages, with Prof. Preethi Jyothi.</p><div class="tags"><span class="tag">LLM evaluation</span><span class="tag">Multilingual NLP</span><span class="tag">High-performance computing</span></div></div>
+      <div class="xp-more"><p>Measuring how well large language models understand Indian languages, beyond perplexity. Showed perplexity unfairly favours languages split into more tokens (it rates Telugu, 27.3, easier than Hindi, 44.9); modelled attention as a token graph and tracked its spectral structure across all 48 layers of Gemma in eight languages; found the graph metrics mostly tracked text length (r = 0.98), so designed a fairer test on 100 parallel texts per language.</p><div class="tags"><span class="tag">Multilingual LLMs</span><span class="tag">Spectral graph theory</span><span class="tag">Evaluation</span></div></div>
     </li>
     <li class="xp-row fade">
       <span class="xp-i">04</span>
-      <div class="xp-main"><h3>Avionics Engineer</h3><div class="xp-org">IITB Rocket Team</div></div>
+      <div class="xp-main"><h3>Research Intern</h3><div class="xp-org">TCAAI, IIT Bombay · Prof. Manjesh Hanawal</div></div>
+      <div class="xp-when"><span class="chip">Completed</span><span class="label">Mar — Aug 2026</span></div>
+      <div class="xp-more"><p>Dialect classification from speech with transformer networks. Assembled a 200+ hour audio corpus with a four-agent workflow that searches, verifies and downloads on its own; attached a 25-scalar weighted layer pool to the WavLM Large backbone to pull out dialect-discriminative signals; applied LoRA adapters selectively across its 24 layers to keep core phonetic structure intact.</p><div class="tags"><span class="tag">Speech</span><span class="tag">WavLM</span><span class="tag">LoRA</span><span class="tag">Agents</span></div></div>
+    </li>
+    <li class="xp-row fade">
+      <span class="xp-i">05</span>
+      <div class="xp-main"><h3>Avionics Engineer</h3><div class="xp-org">IIT Bombay Rocket Team · Project Ananta</div></div>
       <div class="xp-when"><span class="chip">Completed</span><span class="label">Oct 2024 — Aug 2026</span></div>
-      <div class="xp-more"><p>Telemetry and flight electronics — the data link from flight computer to ground station.</p><div class="tags"><span class="tag">Embedded systems</span><span class="tag">Telemetry</span></div></div>
+      <div class="xp-more"><p>Avionics for a 10,000 ft, Mach 0.9 student-built rocket at the International Rocket Engineering Competition 2026 (Midland, Texas), among 180+ universities: Category Rank 3, and the first team from Asia to launch a 10,000 ft SRAD rocket. Built the mission-control interface that decodes LoRa packets into live telemetry, and designed 4-layer PCBs in KiCad for flight-state detection, parachute deployment and RF telemetry.</p><div class="tags"><span class="tag">Embedded systems</span><span class="tag">KiCad</span><span class="tag">LoRa telemetry</span></div></div>
     </li>
   </ol>
   <div class="edu section-pad">
     <div class="label">Education &amp; roles</div>
     <div class="cards">
-      <div class="card fade"><div class="label">2024 – 2028</div><h4>B.Tech, IEOR</h4><p>IIT Bombay<br>Department rank 2</p></div>
-      <div class="card fade"><div class="label">Minors</div><h4>Statistics · CMInDS</h4><p>IIT Bombay<br>Dual minor</p></div>
-      <div class="card fade"><div class="label">Roles</div><h4>Undergraduate Representative · Teaching Assistant</h4><p>B.Tech IEOR representative<br>Teaching assistant: Probability, Calculus, Optimization</p></div>
+      <div class="card fade"><div class="label">2024 – 2028</div><h4>B.Tech, IEOR</h4><p>IIT Bombay · CPI 9.73 / 10<br>Department rank 2 · Institute rank 6 (2025)</p></div>
+      <div class="card fade"><div class="label">Minors</div><h4>Statistics · AI &amp; Data Science</h4><p>IIT Bombay<br>Dual minor (Statistics, CMInDS)</p></div>
+      <div class="card fade"><div class="label">Roles</div><h4>Undergraduate Representative · Academic Mentor</h4><p>IEOR UG Representative (2026 — 27) · Department Academic Mentor to 39 sophomores<br>Teaching assistant: Calculus (MA 105), Probability &amp; Statistics (IE 102), Optimization</p></div>
     </div>
+    <ul class="honours">
+      <li><b>Institute Academic Prize</b> — one of 68 out of 1,300+ first-year students (2025)</li>
+      <li><b>JEE Advanced</b> — All India Rank 1720 of 2.25 lakh+ candidates (2024)</li>
+      <li><b>IREC 2026</b> — Category Rank 3 with Project Ananta, first team from Asia to fly a 10,000 ft SRAD rocket</li>
+      <li><b>AIML General Championship</b> — 1st place among 40+ teams (2026)</li>
+      <li><b>CPU lab contest</b> — winner, top 4% of 650+ students (2025)</li>
+      <li><b>Hindustani classical music &amp; tabla</b> — seven years of training, three distinctions; performed at convocation for 1,400+ graduates</li>
+    </ul>
   </div>
 
   <!-- record + skills -->
@@ -132,11 +146,11 @@
     <div class="top"><h2 class="big" style="font-size:clamp(50px,6vw,96px)"><span class="reveal"><span>Skills</span></span></h2><span class="label">Stack · <b id="stackn">0</b></span></div>
     <div class="grid">
       <div class="cell crosshair"><header><span class="mono">Optimization &amp; Operations Research</span><span class="label">01</span></header>
-        <div class="tags"><span class="tag">Linear programming</span><span class="tag">Mixed-integer programming</span><span class="tag">Stochastic processes</span><span class="tag">Markov chains</span><span class="tag">Simulation</span><span class="tag">AnyLogic</span><span class="tag">System dynamics</span><span class="tag">Gurobi</span></div></div>
+        <div class="tags"><span class="tag">Linear programming</span><span class="tag">Mixed-integer programming</span><span class="tag">Stochastic processes</span><span class="tag">Markov chains</span><span class="tag">Simulation</span><span class="tag">AnyLogic</span><span class="tag">System dynamics</span><span class="tag">Gurobi</span><span class="tag">Isotonic regression</span><span class="tag">Queueing</span></div></div>
       <div class="cell"><header><span class="mono">Statistics &amp; Machine Learning</span><span class="label">02</span></header>
-        <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">Statistical inference</span><span class="tag">LLM evaluation</span><span class="tag">LoRA</span><span class="tag">Graph methods</span><span class="tag">NumPy</span><span class="tag">pandas</span></div></div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">Statistical inference</span><span class="tag">LLM evaluation</span><span class="tag">LoRA</span><span class="tag">Graph methods</span><span class="tag">NumPy</span><span class="tag">pandas</span><span class="tag">TensorFlow</span><span class="tag">scikit-learn</span><span class="tag">Hidden Markov models</span></div></div>
       <div class="cell crosshair"><header><span class="mono">Systems &amp; Tools</span><span class="label">03</span></header>
-        <div class="tags"><span class="tag">C / C++</span><span class="tag">Embedded telemetry</span><span class="tag">Linux</span><span class="tag">HPC / Slurm</span><span class="tag">Git</span><span class="tag">SQL</span><span class="tag">LaTeX</span><span class="tag">Figma</span></div></div>
+        <div class="tags"><span class="tag">C / C++</span><span class="tag">Embedded telemetry</span><span class="tag">Linux</span><span class="tag">KiCad</span><span class="tag">Slurm</span><span class="tag">Git</span><span class="tag">SQL</span><span class="tag">LaTeX</span><span class="tag">Figma</span><span class="tag">Fusion 360</span><span class="tag">MATLAB</span></div></div>
     </div>
   </div>
 </section>
@@ -158,11 +172,11 @@
   <h2 class="big" style="font-size:clamp(56px,7vw,116px);margin-top:14px"><span class="reveal"><span>Let's work together</span></span></h2>
   <div class="ct-grid">
     <div class="ct-left">
-      <a class="mail" href="mailto:you@example.com">you@example.com <span style="font-size:.6em">↗</span></a>
+      <a class="mail" href="mailto:24b4522@iitb.ac.in">24b4522@iitb.ac.in <span style="font-size:.6em">↗</span></a>
       <h3>Let's stay in touch</h3>
       <p>Always happy to talk about research, internships, optimization problems or rockets.</p>
       <div class="ct-list">
-        <div><span>Email</span><span>you@example.com</span></div>
+        <div><span>Email</span><span>24b4522@iitb.ac.in</span></div>
         <div><span>Base</span><span>IIT Bombay, Powai, Mumbai</span></div>
       </div>
       <div style="display:flex;gap:10px"><a data-magnetic class="btn" href="#">GitHub</a><a data-magnetic class="btn" href="#">LinkedIn</a><a data-magnetic class="btn" href="#">Scholar</a></div>
@@ -184,7 +198,7 @@
   <div class="ridge"><canvas id="ridge" aria-hidden="true"></canvas><h2 class="big"><span class="reveal"><span>Ruchir Barhate</span></span></h2></div>
   <div class="fcols">
     <div class="fbrand"><span class="monogram" style="display:inline-block">RB</span><div class="mono" style="margin-top:16px">IEOR undergraduate — IIT Bombay, Mumbai.</div><p>Optimization, statistics and machine learning — turning uncertain problems into decisions you can defend.</p></div>
-    <div><div class="label">01</div><h4>Projects</h4><ul><li><a href="#projects">LLM evaluation</a></li><li><a href="#projects">Hallucination graphs</a></li><li><a href="#projects">BLADE</a></li><li><a href="#projects">Telemetry</a></li></ul></div>
+    <div><div class="label">01</div><h4>Projects</h4><ul><li><a href="#projects">Reliability inference</a></li><li><a href="#projects">Quant engine</a></li><li><a href="#projects">BLADE</a></li><li><a href="#projects">Telemetry</a></li></ul></div>
     <div><div class="label">02</div><h4>Social</h4><ul><li><a href="#">GitHub ↗</a></li><li><a href="#">LinkedIn ↗</a></li><li><a href="#contact">Email ↗</a></li></ul></div>
     <div><div class="label">03</div><h4>Teaching</h4><ul><li><a>Probability</a></li><li><a>Calculus</a></li><li><a>Optimization</a></li></ul></div>
     <div><div class="label">04</div><h4>Mumbai</h4><ul><li><a>Maharashtra, India</a></li><li><a>19.13°N · 72.92°E</a></li></ul></div>
@@ -201,6 +215,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="face-data.js?v=3"></script>
-<script src="script.js?v=10"></script>
+<script src="script.js?v=11"></script>
 </body>
 </html>

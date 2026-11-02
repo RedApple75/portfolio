@@ -199,7 +199,7 @@ section{position:relative}
 .proj-head p{font-size:15px;line-height:1.7;color:var(--muted)}
 .pgrid{display:grid;grid-template-columns:repeat(6,1fr);margin:0 var(--pad);border-top:1px solid var(--line2);border-left:1px solid var(--line2)}
 .pcard{grid-column:span 2;display:flex;flex-direction:column;padding:22px;border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);transition:background .35s}
-.pcard:nth-child(-n+2){grid-column:span 3}   /* first row: two wide tiles, then three */
+.pcard:nth-child(-n+2){grid-column:span 3}   /* first row: two wide tiles, then rows of three */
 .pcard:hover{background:rgb(var(--fg-rgb)/.035)}
 .pcard .meta{display:flex;justify-content:space-between;margin-bottom:14px}
 .pcard canvas{width:100%;aspect-ratio:16/10;display:block;border:1px solid var(--line);background:var(--ink)}
@@ -346,3 +346,9 @@ main.gone{opacity:0;pointer-events:none}
 .pg-proj .tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 22px}
 .pg-links{display:flex;gap:10px}
 @media (max-width:900px){.pg-cols,.pg-role,.pg-proj{grid-template-columns:1fr}.pg .cards{grid-template-columns:1fr}.pg .card{border-right:0;border-bottom:1px solid var(--line)}.layer-bar .esc{display:none}.xp-side{align-items:flex-start}}
+
+/* honours list under education */
+.honours{list-style:none;margin-top:26px;border-top:1px solid var(--line)}
+.honours li{display:block;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.5;color:var(--muted)}
+.honours b{color:var(--paper);font-weight:500}
+.pg .honours{margin-top:30px}

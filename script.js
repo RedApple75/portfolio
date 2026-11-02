@@ -302,15 +302,41 @@ void main(){gl_FragColor=vec4(uFg*vA,vA);}`;   // premultiplied text colour
    PROJECTS — pinned horizontal scroll, dithered procedural previews
    ===================================================================== */
 const projects=[
-  {k:'Research · 2026',t:'Fair Evaluation of LLMs',d:'Benchmarking how large language models perform across Indian languages, and what "fair" comparison means when data and scripts differ.',tags:['LLM evaluation','Multilingual','PyTorch'],art:'bars'},
+  // feat: shown as a tile on the main page; every project appears on the expanded Projects page
+  {feat:1,k:'Statistical Inference · Prof. Radhendushka Srivastava · 2026',t:'Order-Constrained Reliability Across Software Versions',d:'Maximum likelihood when each new software version must be at least as reliable as the last. The constrained MLE is non-convex in θ but is solved exactly by isotonic pooling (PAVA); under no improvement the number of pooled blocks follows the cycle count of a random permutation, giving a distribution-free test.',
+    more:'Phase 1 simulation (K = 10 versions, 2,000 Monte Carlo runs): pooling cut overall MSE by 70.8% when all versions are equal and 62.9% with mixed gaps. Showed PAVA is the exact MLE for any exponential family ordered on its mean (a Bregman-divergence argument), and where it breaks. Projecting exact χ² pivot bands onto the order cone keeps 95% coverage with intervals up to 51% narrower. On real data the block-count test finds genuine reliability growth in Musa SYS1 (p = 5×10⁻⁷) and none in NTDS (p = 0.57).',
+    tags:['Isotonic regression','Maximum likelihood','Pivots & intervals','Monte Carlo'],art:'iso'},
+  {feat:1,k:'Optimization Modeling Lab · Prof. Avinash B, Prof. Vishnu N · 2026',t:'BLADE — Training Binarised Networks by Set Cover',d:'A decomposition framework that trains binarised neural networks layer by layer, recasting the weight search as set-cover pattern selection.',
+    more:'Reduced the search space by 92 orders of magnitude; 4× faster than the monolithic formulation while reaching 91.67% test accuracy against gradient descent\'s 86.67%. Generated 5,000 activation patterns via random sampling, structured perturbation and label correlation.',
+    tags:['Mixed-integer programming','Set cover','Binarised networks'],art:'grid'},
+  {feat:1,k:'Quant Club · MOCCM Black-Box Signal Hunt · 2026',t:'Quantitative Trading Engine — 4th Place',d:'A low-latency trading engine for hidden tickers, built on a one-bar lead-lag relationship.',
+    more:'Cut the parameter space from 1,200 to 18 features with ridge regression to stop out-of-sample decay; reached a long-short net Sharpe of 16.36; volatility-floored constant-risk sizing lifted the blended Sharpe by 20% (11.8 → 14.2).',
+    tags:['Ridge regression','Lead-lag','Risk sizing'],art:'wave'},
+  {feat:1,k:'Quant Club · Summer of Quant · 2026',t:'Regime-Shift Asset Allocation',d:'Convex-optimised portfolio weights that blend hidden-Markov-model regime probabilities across SPY, TLT and GLD.',
+    more:'Expanding-window pipeline over 4,700+ daily observations; exponential smoothing cut annual transaction-cost drag from 52.09% to 0.17%; 0.79 net Sharpe with drawdown held to −8.3% out of sample (post-2015).',
+    tags:['Hidden Markov models','Convex optimization','Backtesting'],art:'bars'},
+  {feat:1,k:'AIML General Championship · 2026',t:'Agentic AI Pitch-Deck Generator — 1st Place',d:'A cost-efficient multi-agent pipeline that turns raw company data into investment pitch decks.',
+    more:'Won 1st place and a ₹1 lakh+ prize among 40+ teams. Three deterministic agents (FastAPI) extract, merge and process the data; strict JSON schemas map 5–8 structured blocks per slide onto three layouts.',
+    tags:['Multi-agent systems','FastAPI','JSON schemas'],art:'flow'},
+  {feat:1,k:'Entrepreneurship project · 2026 — now',t:'Fuel & Load Route Optimization',d:'Part of a 15+ member cross-university team building a logistics optimization platform.',
+    more:'A greedy fuel-stop engine, verified by dynamic programming, over 10,000+ stations; multi-load route planning for 250+ freight loads that reduces deadhead miles while maximising net profit.',
+    tags:['Dynamic programming','Routing','Logistics'],art:'route'},
+  {feat:1,k:'Analytics Club · Winter in Data Science · 2025–26',t:'Federated CNNs for Plant Disease',d:'Disease classification on PlantVillage, from a CNN built from scratch to a federated ResNet.',
+    more:'3-block CNN with batch norm and dropout at 95.5% on 38 classes; two-stage ResNet18 fine-tune on 54,305 images to 99.6% validation accuracy; FedAvg across three isolated clients in Flower cut loss 8.8× with no raw data shared.',
+    tags:['PyTorch','Transfer learning','Federated learning'],art:'graph'},
+  {feat:1,k:'Programming & Computing Lab · Prof. Urban Larsson · 2025',t:'Nodepocalypse — Solving Graph Games',d:'A Grundy-theory solver for optimal play on impartial games played on graphs.',
+    more:'XOR decomposition of independent components cut recursive evaluations by 97% and ran 12.7× faster: 2.5 s on 38 nodes against a 24 s baseline.',
+    tags:['Combinatorial game theory','Graphs','C++'],art:'tree'},
+  {k:'Finance Club · Finsearch · 2025',t:'Reinforcement-Learning Trading',d:'An end-to-end PPO trading strategy with 10+ engineered features (RSI, MACD, momentum) and realistic costs; 15.3% return at a Sharpe of 2.13 in backtests, ahead of ARIMA and LSTM baselines.',tags:['PPO','Stable-Baselines3','Backtesting'],art:'wave'},
+  {k:'Research project · Prof. Vinay Kumar BR · 2025',t:'Node2Vec Random Walks',d:'Extending node2vec theory to configuration-model random graphs: second-order walks, stationary behaviour, and where structural symmetry simplifies the household model.',tags:['Random walks','Random graphs'],art:'graph'},
+  {k:'Digital Enterprise Systems Lab · Prof. Jayendran Venkateswaran · 2026',t:'6-DOF Robotic Arm Palletizer',d:'ArmOS, a web interface driving six servos over a Python serial bridge, with calibrated degree-per-mm kinematics in C++ and a 15 ms smoothing loop against torque spikes.',tags:['C++','Python','Robotics'],art:'flow'},
   {k:'Research · 2026',t:'Graph-Based Hallucination Detection',d:'Turning model outputs into graphs of claims to flag unsupported statements; multilingual LoRA experiments on IIT Bombay\'s computing cluster.',tags:['Graphs','LoRA','High-performance computing'],art:'graph'},
-  {k:'Project · Prof. Vishnu Narayanan',t:'BLADE — Neural Networks Trained by Integer Programming',d:'Training binarised neural networks with mixed-integer programming instead of gradient descent.',tags:['Mixed-integer programming','Optimization','Binarised networks'],art:'grid'},
   {k:'Model · 2026',t:'Bihar Prohibition, Simulated',d:'A system-dynamics model of Bihar\'s 2016 alcohol prohibition — stocks, flows and unintended feedback loops.',tags:['System dynamics','Policy','Simulation'],art:'flow'},
-  {k:'Team · IITB Rocket Team',t:'Flight Telemetry System',d:'Avionics for a student rocket: sensor data from the flight computer, down a radio link, to a live ground display.',tags:['Embedded systems','Telemetry','C / C++'],art:'wave'},
 ];
+const featured=projects.filter(p=>p.feat);
 const track=$('#pgrid');
-projects.forEach((p,i)=>{const el=document.createElement('article');el.className='pcard';el.innerHTML=
- `<div class="meta"><span class="label"><b>${String(i+1).padStart(2,'0')}</b> / ${String(projects.length).padStart(2,'0')}</span><span class="label">${p.k}</span></div>
+featured.forEach((p,i)=>{const el=document.createElement('article');el.className='pcard';el.innerHTML=
+ `<div class="meta"><span class="label"><b>${String(i+1).padStart(2,'0')}</b> / ${String(featured.length).padStart(2,'0')}</span><span class="label">${p.k.split(' · ')[0]} · ${p.k.split(' · ').pop()}</span></div>
   <canvas data-art="${p.art}" data-cursor="View"></canvas>
   <div class="info"><h3>${p.t}</h3><div><p>${p.d}</p><div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div></div>`;track.append(el)});
 
@@ -323,6 +349,16 @@ function art(kind,w,h,t){ // returns luminance function data via offscreen canva
   if(kind==='grid'){const n=10;for(let i=0;i<n;i++)for(let j=0;j<6;j++){const on=Math.sin(i*3.1+j*1.7+Math.floor(t/700))>0;g.globalAlpha=on?1:.18;g.fillRect(w*.1+i*w*.08,h*.15+j*h*.12,w*.06,h*.09)}}
   if(kind==='flow'){g.lineWidth=2;const xs=[.18,.5,.82];xs.forEach((x,i)=>{g.globalAlpha=.9;g.strokeRect(w*x-w*.09,h*.38,w*.18,h*.24);const lvl=.5+.45*Math.sin(t*.0012+i*2);g.globalAlpha=.6;g.fillRect(w*x-w*.09,h*.62-h*.24*lvl,w*.18,h*.24*lvl)});g.globalAlpha=.8;g.beginPath();g.moveTo(w*.27,h*.5);g.lineTo(w*.41,h*.5);g.moveTo(w*.59,h*.5);g.lineTo(w*.73,h*.5);g.stroke();g.beginPath();g.ellipse(w*.5,h*.5,w*.38,h*.36,0,Math.PI*1.1,Math.PI*1.9);g.stroke()}
   if(kind==='wave'){g.lineWidth=2;for(let k=0;k<3;k++){g.globalAlpha=1-k*.3;g.beginPath();for(let x=0;x<w;x+=2){const y=h*(.3+k*.22)+Math.sin(x*.03*(k+1)+t*.003)*h*.07*(1+Math.sin(x*.005));x?g.lineTo(x,y):g.moveTo(x,y)}g.stroke()}}
+  if(kind==='iso'){const n=10;let y=.8;g.lineWidth=2;g.globalAlpha=.35;g.fillRect(w*.06,h*.16,w*.88,h*.68);g.globalAlpha=1;g.fillStyle='#000';   // band, then the fitted staircase over noisy estimates
+    for(let i=0;i<n;i++){const x0=w*(.06+.88*i/n),x1=w*(.06+.88*(i+1)/n);y=Math.max(.18,y-(i%3?.02:.12)-.02*Math.sin(t*.001+i));g.fillRect(x0,h*y-h*.1,x1-x0,h*.2)}
+    g.fillStyle='#fff';y=.8;for(let i=0;i<n;i++){const x0=w*(.06+.88*i/n),x1=w*(.06+.88*(i+1)/n);y=Math.max(.18,y-(i%3?.02:.12)-.02*Math.sin(t*.001+i));g.fillRect(x0,h*y-1.5,x1-x0,3);
+      g.beginPath();g.arc((x0+x1)/2,h*(y+(rnd()-.5)*.3),3,0,7);g.fill()}}
+  if(kind==='route'){const pts=[...Array(9)].map((_,i)=>[w*(.08+.84*i/8),h*(.5+.32*Math.sin(i*1.9+1))]);g.lineWidth=2;g.setLineDash([4,5]);g.beginPath();pts.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.stroke();g.setLineDash([]);
+    for(let i=0;i<40;i++){g.globalAlpha=.4;g.fillRect(rnd()*w,rnd()*h,3,3)}g.globalAlpha=1;pts.forEach((p,i)=>{g.beginPath();g.arc(p[0],p[1],i%4?4:7,0,7);g.fill()});
+    const k=(t*.0004)%1*8,i0=Math.floor(k),f=k-i0,a=pts[i0],b=pts[Math.min(8,i0+1)];g.fillRect(a[0]+(b[0]-a[0])*f-5,a[1]+(b[1]-a[1])*f-5,10,10)}
+  if(kind==='tree'){const lv=[[.5],[.28,.72],[.16,.4,.6,.84],[.1,.22,.34,.46,.54,.66,.78,.9]];g.lineWidth=1.5;g.globalAlpha=.6;
+    lv.forEach((row,d)=>{if(!d)return;row.forEach((x,i)=>{const px=lv[d-1][i>>1];g.beginPath();g.moveTo(w*px,h*(.14+d*.24));g.lineTo(w*x,h*(.14+(d)*.24)+0);g.moveTo(w*px,h*(.14+(d-1)*.24));g.lineTo(w*x,h*(.14+d*.24));g.stroke()})});
+    g.globalAlpha=1;lv.forEach((row,d)=>row.forEach((x,i)=>{const on=(i+d+Math.floor(t/600))%3===0;g.globalAlpha=on?1:.5;g.beginPath();g.arc(w*x,h*(.14+d*.24),on?6:4,0,7);g.fill()}))}
   return g.getImageData(0,0,w,h).data;
 }
 const bay=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5].map(v=>(v+.5)/16);
@@ -465,14 +501,16 @@ function pitStop(canvas,st){
    worldline shift. Hover reads the caption, click jumps to the next.
    The meter is an object, so it keeps its own dark glass in both modes.
    ===================================================================== */
-// TODO(Ruchir): the entries marked "placeholder" need your real numbers
 const WORLDLINES=[
   {v:'1.048596',c:'1.048596 — the Steins;Gate worldline. You are on the right one.'},
   {v:'3',c:'Courses I have been a teaching assistant for: Probability, Calculus, Optimization.'},
-  {v:'107.421',c:'Best lap in Assetto Corsa, seconds (placeholder — put your real lap and track here).'},
-  {v:'142',c:'Current Wordle streak (placeholder).'},
+  {v:'10000',c:'Feet: the apogee of Project Ananta — the first team from Asia to launch a 10,000 ft student-built rocket (IREC 2026).'},
+  {v:'16.36',c:'Long-short net Sharpe ratio of the trading engine that placed 4th in the MOCCM Black-Box Signal Hunt.'},
+  {v:'92',c:'Orders of magnitude BLADE cut from the binarised-network search space.'},
+  {v:'2.929',c:'H₁₀ = 1 + 1/2 + … + 1/10: the expected number of PAVA blocks when ten versions are equally reliable. The simulation gave 2.94.'},
   {v:'0.337187',c:'0.337187 — the Alpha worldline. Something went wrong here.'},
   {v:'2',c:'Department rank in IEOR, IIT Bombay.'},
+  {v:'6',c:'Institute rank at IIT Bombay by CGPA, out of 1,400+ students (2025).'},
   {v:'1.130205',c:'1.130205 — a Beta worldline. Click again to escape it.'},
 ];
 (function nixie(){
@@ -568,7 +606,7 @@ const PAGES={
     <div class="pg-cols"><div class="pg-copy">${noFade($('#about .body-copy').innerHTML)}
       <p class="todo">Long-form bio — to be written.</p></div>
       <aside class="profile">${noFade($('#about .profile dl').outerHTML)}</aside></div>
-    <div class="label pg-sub">Education &amp; roles</div>${noFade($('#experience .edu .cards').outerHTML)}</div>`,
+    <div class="label pg-sub">Education &amp; roles</div>${noFade($('#experience .edu .cards').outerHTML)}${noFade($('#experience .honours').outerHTML)}</div>`,
   experience:()=>`<div class="pg">
     <div class="label">[ <b>02</b> ] · Experience, in full</div>
     <h1 class="pg-title">Where I've<br><span class="ol">worked</span></h1>
@@ -583,7 +621,7 @@ const PAGES={
     <h1 class="pg-title">Selected<br><span class="ol">projects</span></h1>
     ${projects.map((p,i)=>`<article class="pg-proj"><canvas data-art="${p.art}"></canvas>
       <div><div class="label"><b>${String(i+1).padStart(2,'0')}</b> / ${String(projects.length).padStart(2,'0')} · ${p.k}</div><h2>${p.t}</h2><p>${p.d}</p>
-        <p class="todo">Full write-up — problem, approach, results — to be written.</p>
+        ${p.more?`<p>${p.more}</p>`:''}
         <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
         <div class="pg-links"><a class="btn" href="#">Code ↗</a><a class="btn" href="#">Report ↗</a></div></div></article>`).join('')}</div>`,
 };
