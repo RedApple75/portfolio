@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LinkedIn banner — Ruchir Barhate</title>
+<!-- Source for linkedin-banner.png (1584×396, LinkedIn's banner size). The profile photo covers the
+     lower-left on desktop, so everything that matters sits right of ~x=520. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1584px;height:396px;overflow:hidden;background:#050505}
+  #b{position:relative;width:1584px;height:396px;color:#efede6}
+  canvas{position:absolute;inset:0}
+  .txt{position:absolute;right:56px;top:50%;transform:translateY(-52%);text-align:right}
+  .lbl{font:400 13px/1 "Geist Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,237,230,.62)}
+  .lbl b{color:#efede6;font-weight:500}.lbl i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e10600;margin-right:10px;vertical-align:1px}
+  h1{font:200 92px/.9 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin:18px 0 20px}
+  h1 span{display:block}h1 .ol{color:transparent;-webkit-text-stroke:1.4px #e10600}
+</style>
+</head>
+<body>
+<div id="b">
+  <canvas id="c" width="1584" height="396"></canvas>
+  <div class="txt">
+    <div class="lbl"><i></i>Ruchir Barhate · <b>IEOR, IIT Bombay</b></div>
+    <h1><span>Off the path,</span><span class="ol">on course</span></h1>
+    <div class="lbl">Optimization · Statistics · Machine Learning</div>
+  </div>
+</div>
+<script>
+(async()=>{
+  try{await document.fonts.ready}catch(e){}
+  const c=document.getElementById('c'),g=c.getContext('2d'),W=1584,H=396;
+  const rnd=(s=>()=>(s=(s*16807)%2147483647)/2147483647)(9445);
+  // the site's background lattice: square dots on a 17px grid, ~2/3 present, a few brighter
+  for(let y=6;y<H;y+=17)for(let x=6;x<W;x+=17){const h=rnd();if(h>.68)continue;g.fillStyle=`rgba(239,237,230,${h<.12?.38:.16})`;g.fillRect(x,y,3,3)}
+  // a dithered dot-plot of a normal sample with its density curve in red, between the photo and the text
+  const x0=560,x1=1000,base=330,cols=48,dx=(x1-x0)/cols,stack=new Array(cols).fill(0),M=520;   // sized so the curve peaks ~250px up
+  g.clearRect(x0-20,40,x1-x0+40,base-20);g.fillStyle='#050505';g.fillRect(x0-20,40,x1-x0+40,base-20);
+  for(let n=0;n<M;n++){const z=Math.sqrt(-2*Math.log(rnd()+1e-9))*Math.cos(2*Math.PI*rnd()),k=Math.floor((z+3.2)/6.4*cols);if(k<0||k>=cols)continue;
+    const y=base-(stack[k]++)*dx,a=.55+.45*rnd();g.fillStyle=`rgba(239,237,230,${a})`;g.fillRect(x0+k*dx+1,y-dx+1,dx-3,dx-3)}
+  const peak=M*(6.4/cols)*.3989*dx;g.fillStyle='#e10600';
+  for(let i=0;i<=600;i++){const z=-3.2+6.4*i/600,x=x0+(z+3.2)/6.4*(x1-x0),y=base-peak*Math.exp(-z*z/2);g.fillRect(x-1.2,y-1.2,2.4,2.4)}
+  g.fillStyle='rgba(239,237,230,.4)';for(let x=x0;x<=x1;x+=6)g.fillRect(x,base+6,2,2);   // dotted axis
+  g.font='400 11px "Geist Mono",monospace';g.fillStyle='rgba(239,237,230,.45)';g.fillText('N(μ, σ²) · n = '+M,x0,base+26);
+  document.body.dataset.ready='1';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ruchir Barhate — IEOR, IIT Bombay</title>
+<script>try{const t=localStorage.getItem('rb-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Geist+Mono:wght@400;500&family=Geist:wght@300..600&display=swap">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<!-- one canvas: every dot on the page lives here and re-forms for each station as you scroll -->
+<canvas id="field" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <a class="brand" href="#" data-go="0">Ruchir<i>.</i>Barhate</a>
+  <nav class="rail" aria-label="Sections">
+    <a data-go="1"><span>01</span>About</a>
+    <a data-go="2"><span>02</span>Experience</a>
+    <a data-go="6"><span>03</span>Record</a>
+    <a data-go="7"><span>04</span>Projects</a>
+    <a data-go="12"><span>05</span>Skills</a>
+    <a data-go="13"><span>06</span>Contact</a>
+  </nav>
+  <button class="mode" id="mode" type="button" aria-label="Switch colour mode"><span class="sw"><i></i></span><span class="label" id="modeLabel">Light</span></button>
+</header>
+
+
+<main id="stations">
+  <!-- 0 · hero : dots form the portrait -->
+  <section class="st hero" data-name="Hello">
+    <div class="label status"><i></i>Third year · IIT Bombay · open to research internships, summer 2027</div>
+    <h1><span>Off the path,</span><span class="ol">on course</span></h1>
+    <h2 class="giant">Ruchir<br>Barhate</h2>
+    <div class="label cue">Scroll — the dots re-form at every stop</div>
+  </section>
+
+  <!-- 1 · about : a Gaussian dot-plot with its density curve -->
+  <section class="st about" data-name="About">
+    <div class="label">01 · About</div>
+    <!-- placeholder copy: Ruchir will supply the final text -->
+    <p class="lead">Third-year Industrial Engineering &amp; Operations Research undergraduate at IIT Bombay, <em>ranked second in the department</em>, minoring in Statistics and CMInDS.</p>
+    <p>My work sits where optimization meets data — problems that start as a messy real-world question and end as a model you can trust.</p>
+  </section>
+
+  <!-- 2–5 · experience : one stop per role, dots form its number -->
+  <section class="st xp" data-name="Experience">
+    <div class="label">02 · Experience <b>01</b> / 04</div>
+    <div class="chip live"><i></i>Incoming · Summer 2026</div>
+    <h2>Data Analyst Intern</h2>
+    <div class="org">American Express</div>
+    <p>Add a line about the team and the problem once you start.</p>
+    <div class="tags"><span>Analytics</span><span>SQL</span></div>
+  </section>
+  <section class="st xp" data-name="Experience">
+    <div class="label">02 · Experience <b>02</b> / 04</div>
+    <div class="chip">Completed · Winter 2026</div>
+    <h2>AI / ML Intern</h2>
+    <div class="org">Alpha Alternatives</div>
+    <p>Winter internship in an AI and machine-learning role. Replace with what you built.</p>
+    <div class="tags"><span>Machine learning</span><span>Python</span></div>
+  </section>
+  <section class="st xp" data-name="Experience">
+    <div class="label">02 · Experience <b>03</b> / 04</div>
+    <div class="chip on">Ongoing · 2025 — now</div>
+    <h2>Undergraduate Researcher</h2>
+    <div class="org">CSALT, IIT Bombay</div>
+    <p>Fair evaluation of large language models on Indian languages, with Prof. Preethi Jyothi.</p>
+    <div class="tags"><span>LLM evaluation</span><span>Multilingual NLP</span><span>High-performance computing</span></div>
+  </section>
+  <section class="st xp" data-name="Experience">
+    <div class="label">02 · Experience <b>04</b> / 04</div>
+    <div class="chip on">Ongoing · 2024 — now</div>
+    <h2>Avionics Engineer</h2>
+    <div class="org">IITB Rocket Team</div>
+    <p>Telemetry and flight electronics — the data link from flight computer to ground station.</p>
+    <div class="tags"><span>Embedded systems</span><span>Telemetry</span></div>
+  </section>
+
+  <!-- 6 · record : dots spell the CPI -->
+  <section class="st record" data-name="Record">
+    <div class="label">03 · Record</div>
+    <h2>Department rank <em>2</em></h2>
+    <dl>
+      <dt>Program</dt><dd>B.Tech, Industrial Engineering &amp; Operations Research</dd>
+      <dt>Minors</dt><dd>Statistics · CMInDS</dd>
+      <dt>Roles</dt><dd>Undergraduate Representative · Teaching Assistant for Probability, Calculus and Optimization</dd>
+    </dl>
+  </section>
+
+  <!-- 7–11 · projects : dots draw each project's figure -->
+  <section class="st proj" data-name="Projects">
+    <div class="label">04 · Projects <b>01</b> / 05 · Research · 2026</div>
+    <h2>Fair Evaluation of LLMs</h2>
+    <p>Benchmarking how large language models perform across Indian languages, and what "fair" comparison means when data and scripts differ.</p>
+    <div class="tags"><span>LLM evaluation</span><span>Multilingual</span><span>PyTorch</span></div>
+  </section>
+  <section class="st proj" data-name="Projects">
+    <div class="label">04 · Projects <b>02</b> / 05 · Research · 2026</div>
+    <h2>Graph-Based Hallucination Detection</h2>
+    <p>Turning model outputs into graphs of claims to flag unsupported statements; multilingual LoRA experiments on IIT Bombay's computing cluster.</p>
+    <div class="tags"><span>Graphs</span><span>LoRA</span><span>High-performance computing</span></div>
+  </section>
+  <section class="st proj" data-name="Projects">
+    <div class="label">04 · Projects <b>03</b> / 05 · With Prof. Vishnu Narayanan</div>
+    <h2>BLADE — Neural Networks Trained by Integer Programming</h2>
+    <p>Training binarised neural networks with mixed-integer programming instead of gradient descent.</p>
+    <div class="tags"><span>Mixed-integer programming</span><span>Optimization</span><span>Binarised networks</span></div>
+  </section>
+  <section class="st proj" data-name="Projects">
+    <div class="label">04 · Projects <b>04</b> / 05 · Model · 2026</div>
+    <h2>Bihar Prohibition, Simulated</h2>
+    <p>A system-dynamics model of Bihar's 2016 alcohol prohibition — stocks, flows and unintended feedback loops.</p>
+    <div class="tags"><span>System dynamics</span><span>Policy</span><span>Simulation</span></div>
+  </section>
+  <section class="st proj" data-name="Projects">
+    <div class="label">04 · Projects <b>05</b> / 05 · IITB Rocket Team</div>
+    <h2>Flight Telemetry System</h2>
+    <p>Avionics for a student rocket: sensor data from the flight computer, down a radio link, to a live ground display.</p>
+    <div class="tags"><span>Embedded systems</span><span>Telemetry</span><span>C / C++</span></div>
+  </section>
+
+  <!-- 12 · skills : three connected clusters -->
+  <section class="st skills" data-name="Skills">
+    <div class="label">05 · Skills</div>
+    <h3>Optimization &amp; Operations Research</h3>
+    <p>Linear and mixed-integer programming · stochastic processes · Markov chains · simulation · AnyLogic · system dynamics · Gurobi</p>
+    <h3>Statistics &amp; Machine Learning</h3>
+    <p>Python · PyTorch · statistical inference · LLM evaluation · LoRA · graph methods · NumPy · pandas</p>
+    <h3>Systems &amp; Tools</h3>
+    <p>C / C++ · embedded telemetry · Linux · Slurm · Git · SQL · LaTeX · Figma</p>
+  </section>
+
+  <!-- 13 · contact : a dotted globe -->
+  <section class="st contact" data-name="Contact">
+    <div class="label">06 · Contact</div>
+    <h2>Let's work<br>together</h2>
+    <a class="mail" href="mailto:you@example.com">you@example.com ↗</a>
+    <div class="links"><a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">Scholar</a></div>
+    <div class="label foot">IIT Bombay, Powai, Mumbai · © 2026 Ruchir Barhate</div>
+  </section>
+</main>
+<div class="count label" aria-hidden="true"><b id="cnum">01</b> / <span id="ctot">14</span> · <span id="cname">Hello</span></div>
+<div id="track" aria-hidden="true"></div>
+
+<script src="../face-data.js?v=3"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+:root{
+  --display:'Big Shoulders Display','Arial Narrow',sans-serif;
+  --sans:'Geist',system-ui,sans-serif; --mono:'Geist Mono',ui-monospace,monospace;
+  --pad:clamp(18px,3vw,44px); --red:#e10600;
+}
+:root,[data-theme=light]{--bg-rgb:239 237 230;--fg-rgb:17 16 14}
+[data-theme=dark]{--bg-rgb:5 5 5;--fg-rgb:239 237 230}
+:root,[data-theme]{--bg:rgb(var(--bg-rgb));--fg:rgb(var(--fg-rgb));--muted:rgb(var(--fg-rgb)/.66);--dim:rgb(var(--fg-rgb)/.45);--line:rgb(var(--fg-rgb)/.18)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);transition:background .4s}
+body{color:var(--fg);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--red);color:#f4f1ea}
+.label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.label b{color:var(--fg);font-weight:500}
+
+#field{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+#track{position:relative;z-index:-1}
+
+/* ---------- chrome ---------- */
+.bar{position:fixed;top:0;left:0;right:0;z-index:10;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:60px;padding:0 var(--pad)}
+.brand{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+.brand i{font-style:normal;color:var(--red)}
+.count{position:fixed;right:var(--pad);bottom:var(--pad);z-index:10}
+.mode{justify-self:end;display:flex;align-items:center;gap:10px}
+.mode .sw{position:relative;width:38px;height:20px;border:1px solid var(--line);border-radius:20px}
+.mode:hover .sw{border-color:var(--fg)}
+.mode .sw i{position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:var(--red);transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+[data-theme=dark] .mode .sw i{transform:translateX(18px)}
+.rail{justify-self:center;display:flex;gap:26px}
+.rail a{display:flex;gap:10px;align-items:baseline;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);padding:3px 0;transition:color .25s,transform .35s cubic-bezier(.16,1,.3,1)}
+.rail a span{font-size:9px}
+.rail a:hover{color:var(--fg)}
+.rail a.on{color:var(--fg)}
+.rail a.on span{color:var(--red)}
+
+/* ---------- stations: fixed text panels, faded in and out by scroll ---------- */
+.st{position:fixed;left:var(--pad);top:50%;z-index:5;width:min(46vw,760px);opacity:0;pointer-events:none;will-change:opacity,transform;--c:-50%;transform:translateY(calc(var(--c) + var(--dy,0px)))}
+.st.live{pointer-events:auto}
+.st h2{font-family:var(--display);font-weight:500;text-transform:uppercase;line-height:.88;letter-spacing:-.005em}
+.st p{font-size:clamp(17px,1.35vw,22px);line-height:1.6;color:var(--muted);max-width:620px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.tags span{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:5px 8px;border:1px solid var(--line);color:var(--muted)}
+.st>.label:first-child{margin-bottom:22px}
+
+.hero{top:auto;bottom:calc(var(--pad) + 120px);width:min(52vw,900px);--c:0%}
+.hero .status{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.hero .status i,.chip.live i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgb(225 6 0/.55)}70%,100%{box-shadow:0 0 0 9px rgb(225 6 0/0)}}
+.hero h1{font-family:var(--display);font-weight:200;text-transform:uppercase;font-size:clamp(34px,5.6vh,78px);line-height:.95}
+.hero h1 span{display:block}
+.hero h1 .ol{color:transparent;-webkit-text-stroke:1px var(--fg)}
+.hero .giant{font-family:var(--display);font-weight:800;font-size:clamp(64px,min(11vw,17vh),220px);line-height:.84;margin-top:28px}
+.hero .cue{margin-top:26px}
+
+.about .lead{font-family:var(--display);font-weight:300;font-size:clamp(34px,3.6vw,64px);line-height:1.04;color:var(--fg);max-width:none;margin-bottom:28px}
+.about .lead em{font-style:normal;color:var(--red)}
+
+.xp h2{font-size:clamp(54px,6.6vw,124px);margin:22px 0 14px}
+.xp .org{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:26px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;padding:6px 10px;border:1px solid var(--line)}
+.chip.on{border-color:var(--fg)}
+.chip.live{background:var(--red);border-color:var(--red);color:#f4f1ea}
+.chip.live i{background:#f4f1ea}
+
+.record h2{font-size:clamp(48px,5.4vw,96px);margin-bottom:30px}
+.record h2 em{font-style:normal;color:var(--red)}
+.record dl{display:grid;grid-template-columns:auto 1fr;max-width:620px;border-top:1px solid var(--line)}
+.record dt,.record dd{padding:14px 0;border-bottom:1px solid var(--line)}
+.record dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);padding-right:30px}
+.record dd{font-size:clamp(16px,1.2vw,19px)}
+
+.proj h2{font-size:clamp(44px,4.8vw,92px);margin-bottom:22px}
+.skills h3{font-family:var(--display);font-weight:500;text-transform:uppercase;font-size:clamp(26px,2.3vw,40px);line-height:1;margin:22px 0 8px}
+.skills h3:first-of-type{margin-top:0}
+.skills p{font-size:clamp(15px,1.1vw,18px)}
+.contact h2{font-size:clamp(60px,7.4vw,140px);margin-bottom:30px}
+.mail{display:inline-block;font-family:var(--display);font-weight:300;font-size:clamp(30px,3vw,52px);border-bottom:1px solid var(--line);padding-bottom:8px;transition:color .2s,border-color .2s}
+.mail:hover{color:var(--red);border-color:var(--red)}
+.links{display:flex;gap:10px;margin:26px 0}
+.links a{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;padding:10px 16px;border:1px solid var(--line);transition:border-color .2s,background .2s,color .2s}
+.links a:hover{background:var(--red);border-color:var(--red);color:#f4f1ea}
+
+/* phones and narrow windows: the figure sits in the upper half, the text below it */
+@media (max-aspect-ratio:11/10){
+  .st{left:var(--pad);right:var(--pad);width:auto;top:auto;bottom:calc(var(--pad) + 30px);--c:0%}
+  .hero{bottom:calc(var(--pad) + 30px)}
+  .rail,.count{display:none}
+  .bar{grid-template-columns:1fr 1fr}
+  .st p{font-size:16px}
+  .skills p{font-size:13px}.skills h3{font-size:22px;margin-top:12px}
+}

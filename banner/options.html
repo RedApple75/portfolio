@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LinkedIn banner options</title>
+<!-- LinkedIn banners (1584×396) built from the site's own pieces. Pick one with ?v=1 … ?v=11 (11 is 7 in light mode).
+     The profile photo covers the lower-left on desktop, so artwork and text stay right of ~x=500. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Geist+Mono:wght@400;500&family=Dela+Gothic+One&display=swap">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1584px;height:396px;overflow:hidden;background:var(--bg)}
+  :root{--bg:#050505;--fg:239,237,230;--red:#e10600}
+  body.light{--bg:#ece8de;--fg:38,34,30}
+  #b{position:relative;width:1584px;height:396px;color:rgb(var(--fg))}
+  canvas{position:absolute;inset:0}
+  .txt{position:absolute;top:50%;transform:translateY(-50%)}
+  .txt.r{right:56px;text-align:right}.txt.l{left:var(--x,560px);text-align:left}
+  .lbl{font:400 13px/1 "Geist Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(var(--fg),.62)}
+  .lbl b{color:rgb(var(--fg));font-weight:500}.lbl i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:10px;vertical-align:1px}
+  h1{font:200 var(--fs,104px)/.9 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin:18px 0 20px}
+  h1 span{display:block}h1 .ol{color:transparent;-webkit-text-stroke:1.5px var(--red)}
+  .tag{position:absolute;font:400 11px/1 "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(var(--fg),.5)}
+</style>
+</head>
+<body>
+<div id="b"><canvas id="c" width="1584" height="396"></canvas></div>
+<script src="../face-data.js"></script>
+<script>
+(async()=>{
+const V=+(new URLSearchParams(location.search).get('v')||1);
+if(V===11)document.body.classList.add('light');   // 11 = the route, in light mode
+try{await Promise.all(['200 100px "Big Shoulders Display"','600 100px "Big Shoulders Display"','300 100px "Big Shoulders Display"','400 13px "Geist Mono"','400 60px "Dela Gothic One"'].map(f=>document.fonts.load(f,'ゴ0RB')));await document.fonts.ready}catch(e){}
+const c=document.getElementById('c'),g=c.getContext('2d'),W=1584,H=396,B=document.getElementById('b');
+const LIGHT=V===11,FG=LIGHT?[38,34,30]:[239,237,230],BG=LIGHT?'#ece8de':'#050505',RED='#e10600';
+const fg=a=>`rgba(${FG},${a})`;
+const rng=s=>()=>(s=(s*16807)%2147483647)/2147483647;let rnd=rng(9445);
+const bay=[0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21].map(v=>(v+.5)/64);
+const dith=(x,y)=>bay[(y&7)*8+(x&7)];
+
+// ---------- shared pieces ----------
+function lattice(alpha=1,clear){const r=rng(77);for(let y=6;y<H;y+=17)for(let x=6;x<W;x+=17){const h=r();if(h>.68)continue;if(clear&&clear(x,y))continue;g.fillStyle=fg((h<.12?.38:.16)*alpha);g.fillRect(x,y,3,3)}}
+function text({side='r',x=560,fs=104,label=true,sub=true}={}){
+  const d=document.createElement('div');d.className='txt '+side;d.style.setProperty('--x',x+'px');d.style.setProperty('--fs',fs+'px');
+  d.innerHTML=(label?'<div class="lbl"><i></i>Ruchir Barhate · <b>IEOR, IIT Bombay</b></div>':'')+'<h1><span>Off the path,</span><span class="ol">on course</span></h1>'+(sub?'<div class="lbl">Optimization · Statistics · Machine Learning</div>':'');
+  B.append(d);return d}
+function tag(t,x,y,align='left'){const d=document.createElement('div');d.className='tag';d.textContent=t;d.style.left=x+'px';d.style.top=y+'px';if(align==='right'){d.style.left='auto';d.style.right=(W-x)+'px'}B.append(d)}
+function clearBox(x,y,w,h){g.fillStyle=BG;g.fillRect(x,y,w,h)}
+// rasterise text to a cell grid (for dot-matrix lettering)
+function cells(str,font,rows){const m=document.createElement('canvas').getContext('2d');m.font=font(rows);const cols=Math.ceil(m.measureText(str).width)+2;
+  const o=document.createElement('canvas');o.width=cols;o.height=rows;const og=o.getContext('2d',{willReadFrequently:true});og.font=font(rows);og.fillStyle='#fff';og.textBaseline='middle';og.fillText(str,1,rows*.54);
+  const d=og.getImageData(0,0,cols,rows).data;return{cols,rows,on:(x,y)=>d[(y*cols+x)*4+3]>110}}
+
+// ---------- 1 · normal dot-plot with its density curve (statistics) ----------
+function gauss(x0,x1,base,M=520,cols=48){const dx=(x1-x0)/cols,r=rng(5);
+  for(let k=0;k<cols;k++){const z=-3.2+(k+.5)*6.4/cols,n=Math.round(M*(6.4/cols)*.3989*Math.exp(-z*z/2)*(.86+.2*r()));   // a sample's histogram, a little noise, never above the curve by much
+    for(let i=0;i<n;i++){g.fillStyle=fg(.55+.45*r());g.fillRect(x0+k*dx+1,base-(i+1)*dx+1,dx-3,dx-3)}}
+  const peak=M*(6.4/cols)*.3989*dx;g.fillStyle=RED;for(let i=0;i<=600;i++){const z=-3.2+6.4*i/600;g.fillRect(x0+(z+3.2)/6.4*(x1-x0)-1.2,base-peak*Math.exp(-z*z/2)-1.2,2.4,2.4)}
+  g.fillStyle=fg(.4);for(let x=x0;x<=x1;x+=6)g.fillRect(x,base+6,2,2)}
+
+// ---------- 2 · the halftone portrait ----------
+function portrait(cx,top,h){const F=window.FACE,b=Uint8Array.from(atob(F.data),c=>c.charCodeAt(0)),cell=h/F.rows,x0=cx-F.cols*cell/2;
+  for(let j=0;j<F.rows;j++)for(let i=0;i<F.cols;i++){const v=b[j*F.cols+i];if(!v)continue;const l=(v-1)/254,s=cell*(.28+.62*l);
+    g.fillStyle=fg(.28+.72*l);g.fillRect(x0+i*cell+(cell-s)/2,top+j*cell+(cell-s)/2,s,s)}}
+
+// ---------- 3 · divergence meter ----------
+function meter(x0,y0,w,h,val){const T=8,tw=w/T,GW=9,GH=15,cell=Math.min(tw*.78/GW,h*.74/GH),a=val.padStart(T,' ').split('');
+  g.fillStyle='#070403';g.fillRect(x0-10,y0-10,w+20,h+20);g.strokeStyle='rgba(255,140,60,.2)';g.strokeRect(x0-10,y0-10,w+20,h+20);
+  const glyph=ch=>{if(ch==='.'){return{cols:GW,rows:GH,on:(x,y)=>(x===4||x===5)&&(y===GH-2||y===GH-3)}}return cells(ch,r=>`300 ${r*1.02}px "Big Shoulders Display"`,GH)};
+  const stack=[...'0123456789'].map(d=>cells(d,r=>`300 ${r*1.02}px "Big Shoulders Display"`,GH));
+  a.forEach((ch,k)=>{const gx=x0+k*tw+tw*.08,gw=tw*.84,r=gw*.42,grd=g.createLinearGradient(gx,0,gx+gw,0);grd.addColorStop(0,'#1a100a');grd.addColorStop(.5,'#0c0705');grd.addColorStop(1,'#1a100a');
+    g.fillStyle=grd;g.beginPath();g.roundRect(gx,y0,gw,h,[r,r,6,6]);g.fill();g.strokeStyle='rgba(255,150,80,.16)';g.stroke();
+    const ox=x0+k*tw+(tw-GW*cell)/2,oy=y0+(h-GH*cell)/2,sz=cell*.8;g.fillStyle='rgba(255,120,40,.07)';
+    for(let y=0;y<GH;y++)for(let x=0;x<GW;x++)if(stack.some(s=>x<s.cols&&s.on(x+Math.floor((s.cols-GW)/2),y)))g.fillRect(ox+x*cell,oy+y*cell,sz,sz);
+    if(ch===' ')return;const gl=glyph(ch),off=ch==='.'?0:Math.floor((gl.cols-GW)/2);g.shadowColor='rgba(255,90,10,.9)';g.shadowBlur=cell*1.6;g.fillStyle='rgba(255,155,70,.96)';
+    for(let y=0;y<GH;y++)for(let x=0;x<GW;x++)if(x+off<gl.cols&&gl.on(x+off,y))g.fillRect(ox+x*cell,oy+y*cell,sz,sz);g.shadowBlur=0})}
+
+// ---------- 4 · the dithered tyre, side-on, with pit lights ----------
+function tyre(cx,cy,R,cellPx=4,band=[225,6,0]){const RI=R*.64,N=Math.ceil(R*2/cellPx);
+  for(let j=0;j<N;j++)for(let i=0;i<N;i++){const x=(i+.5)*cellPx-R,y=(j+.5)*cellPx-R,r=Math.hypot(x,y);if(r>R)continue;
+    const a=Math.atan2(y,x),light=.5+.5*Math.cos(a+2.3);let lum,red=false;
+    if(r>RI){const t=(r-RI)/(R-RI);lum=.01+.16*light*Math.sin(Math.PI*t)+(t>.9?.5*light:0);if(t>.3&&t<.42){red=true;lum=.6+.4*light}}
+    else{const sp=Math.abs(Math.sin(a*2.5))>.93,rr=r/RI;lum=rr>.9?.85*light+.12:rr<.16?.95:rr<.28?.5*light+.2:sp?.55+.4*light:.08+.12*light}
+    const on=dith(i,j)<lum*.98;g.fillStyle=red?(on?RED:'rgba(80,0,0,.9)'):(on?fg(1):fg(.05));g.fillRect(cx-R+i*cellPx,cy-R+j*cellPx,cellPx-1,cellPx-1)}}
+
+// ---------- 5 · community graph (footer) ----------
+function network(x0,x1,y0,y1){const r=rng(424),hubs=[],nodes=[],edges=[],K=5;
+  for(let k=0;k<K;k++){const h={x:x0+(x1-x0)*(k+.5)/K+(r()-.5)*40,y:y0+(y1-y0)*(.25+r()*.5),hub:1,c:k};hubs.push(h);nodes.push(h)}
+  hubs.forEach(h=>{const n=9+(r()*10|0);for(let i=0;i<n;i++){const a=r()*6.283,d=22+r()*48,v={x:h.x+Math.cos(a)*d,y:h.y+Math.sin(a)*d*1.3,c:h.c};nodes.push(v);edges.push([h,v])}});
+  for(let k=0;k<K-1;k++)edges.push([hubs[k],hubs[k+1],1]);edges.push([hubs[0],hubs[2],1]);edges.push([hubs[1],hubs[4],1]);
+  for(let i=0;i<40;i++)nodes.push({x:x0+r()*(x1-x0),y:y0-20+r()*(y1-y0+40),iso:1});
+  const hot=2;g.lineWidth=1;edges.forEach(([a,b,t])=>{g.strokeStyle=t?fg(.3):a.c===hot?'rgba(225,60,50,.55)':fg(.14);g.beginPath();g.moveTo(a.x,a.y);g.lineTo(b.x,b.y);g.stroke()});
+  nodes.forEach(n=>{const s=n.hub?9:n.iso?3:4;if(n.hub){g.fillStyle=BG;g.fillRect(n.x-s/2,n.y-s/2,s,s);g.strokeStyle=n.c===hot?RED:fg(1);g.strokeRect(n.x-s/2+.5,n.y-s/2+.5,s-1,s-1);g.fillStyle=n.c===hot?RED:fg(1);g.fillRect(n.x-1,n.y-1,2,2)}
+    else{g.fillStyle=n.c===hot?RED:fg(n.iso?.45:.8);g.fillRect(n.x-s/2,n.y-s/2,s,s)}});
+  g.font='400 10px "Geist Mono",monospace';g.fillStyle=fg(.45);g.fillText(`GRAPH · n=${nodes.length} · m=${edges.length} · k=${K}`,x0,y1+28)}
+
+// ---------- 6 · dotted globe (contact) ----------
+function globe(cx,cy,R,rot=.6){const n=5200;for(let i=0;i<n;i++){const y=1-2*(i+.5)/n,r=Math.sqrt(1-y*y),a=i*2.399963;let x=Math.cos(a)*r,z=Math.sin(a)*r;
+    const X=x*Math.cos(rot)-z*Math.sin(rot),Z=x*Math.sin(rot)+z*Math.cos(rot);if(Z<-.05)continue;const land=Math.sin(x*4.1+y*2)*Math.cos(z*3.3-y*1.4)>.15;
+    const s=land?2.6:1.6;g.fillStyle=fg((land?.8:.2)*(.3+.7*Z));g.fillRect(cx+X*R-s/2,cy-y*R-s/2,s,s)}
+  // Mumbai, marked
+  const lat=19.1*Math.PI/180,lon=(72.9-90)*Math.PI/180,px=Math.cos(lat)*Math.sin(lon),py=Math.sin(lat);g.fillStyle=RED;g.fillRect(cx+px*R-4,cy-py*R-4,8,8);
+  g.strokeStyle=RED;g.beginPath();g.arc(cx+px*R,cy-py*R,14,0,7);g.stroke()}
+
+// ---------- 7 · off the path, on course: the expected route, and the one taken ----------
+function route(x0,x1,y){const r=rng(31),tx=x1,ty=y;
+  g.fillStyle=fg(.35);for(let x=x0;x<=tx-24;x+=10)g.fillRect(x,y-1,4,2);   // the obvious road
+  let px=x0,py=y,vy=0;const pts=[];for(let i=0;i<=420;i++){const t=i/420;px=x0+(tx-x0)*t;vy+=(r()-.5)*2.4-(py-ty)*.004*(1-t)*0;py+=vy*.9;const pull=Math.pow(t,3);py=py*(1-pull)+ty*pull;vy*=.97;pts.push([px,py+Math.sin(t*9)*42*Math.sin(Math.PI*t)])}
+  pts.forEach(([x,yy],i)=>{if(i%2)return;g.fillStyle=i>390?RED:`rgba(225,6,0,${.35+.65*i/420})`;g.fillRect(x-2,yy-2,4,4)});
+  g.strokeStyle=RED;g.lineWidth=1.5;g.beginPath();g.arc(tx,ty,13,0,7);g.stroke();g.fillStyle=RED;g.fillRect(tx-3,ty-3,6,6);
+  g.fillStyle=fg(.8);g.fillRect(x0-4,y-4,8,8)}
+
+// ---------- 8 · project figures, dithered (as on the project tiles) ----------
+function art(kind,w,h){const o=document.createElement('canvas');o.width=w;o.height=h;const q=o.getContext('2d',{willReadFrequently:true});q.fillStyle='#000';q.fillRect(0,0,w,h);q.strokeStyle=q.fillStyle='#fff';
+  const r=rng(kind.length*977);
+  if(kind==='bars'){const n=12;for(let i=0;i<n;i++){const v=.25+.7*Math.abs(Math.sin(i*1.7+i*i*.1));q.globalAlpha=.35+.65*v;q.fillRect(w*.06+i*w*.88/n,h*.9-v*h*.75,w/n*.6,v*h*.75)}}
+  if(kind==='graph'){const p=[...Array(16)].map(()=>[r()*w*.9+w*.05,r()*h*.8+h*.1]);q.globalAlpha=.6;q.lineWidth=.6;p.forEach((a,i)=>p.forEach((b,j)=>{if(j>i&&Math.hypot(a[0]-b[0],a[1]-b[1])<w*.24){q.beginPath();q.moveTo(...a);q.lineTo(...b);q.stroke()}}));q.globalAlpha=1;p.forEach(a=>{q.beginPath();q.arc(a[0],a[1],Math.max(1,w/45),0,7);q.fill()})}
+  if(kind==='grid'){for(let i=0;i<10;i++)for(let j=0;j<6;j++){q.globalAlpha=Math.sin(i*3.1+j*1.7)>0?1:.18;q.fillRect(w*.08+i*w*.085,h*.12+j*h*.13,w*.065,h*.1)}}
+  if(kind==='flow'){q.lineWidth=2;[.18,.5,.82].forEach((x,i)=>{q.strokeRect(w*x-w*.1,h*.36,w*.2,h*.28);q.globalAlpha=.6;const l=[.7,.4,.85][i];q.fillRect(w*x-w*.1,h*.64-h*.28*l,w*.2,h*.28*l);q.globalAlpha=1});q.beginPath();q.ellipse(w*.5,h*.5,w*.4,h*.38,0,Math.PI*1.1,Math.PI*1.9);q.stroke()}
+  if(kind==='wave'){q.lineWidth=2;for(let k=0;k<3;k++){q.globalAlpha=1-k*.3;q.beginPath();for(let x=0;x<w;x+=2){const y=h*(.28+k*.22)+Math.sin(x*.05*(k+1))*h*.08;x?q.lineTo(x,y):q.moveTo(x,y)}q.stroke()}}
+  return q.getImageData(0,0,w,h).data}
+function tile(kind,x,y,w,h,label,red){g.fillStyle=BG;g.fillRect(x,y,w,h);g.strokeStyle=fg(.18);g.strokeRect(x+.5,y+.5,w-1,h-1);
+  const cell=4,cols=w/cell|0,rows=(h-18)/cell|0,d=art(kind,cols,rows);
+  for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const v=d[(j*cols+i)*4]/255,qq=Math.floor(v*3+dith(i,j))/3;if(qq<=0)continue;const s=cell*(.3+.6*qq);g.fillStyle=red&&i>cols*.55&&i<cols*.65?`rgba(225,6,0,${.3+.7*qq})`:fg(.3+.7*qq);g.fillRect(x+i*cell+(cell-s)/2,y+4+j*cell+(cell-s)/2,s,s)}
+  g.font='400 9px "Geist Mono",monospace';g.fillStyle=fg(.5);g.fillText(label,x+8,y+h-7)}
+
+// ---------- 9 · dot-matrix name ----------
+function dotName(str,x0,y0,rows,maxW,redFrom){const m=cells(str,r=>`600 ${r*1.05}px "Big Shoulders Display"`,rows),cell=Math.min(6,maxW/m.cols);
+  const split=redFrom?cells(str.slice(0,redFrom),r=>`600 ${r*1.05}px "Big Shoulders Display"`,rows).cols:1e9;   // first redFrom characters in white, the rest red
+  for(let y=0;y<m.rows;y++)for(let x=0;x<m.cols;x++)if(m.on(x,y)){g.fillStyle=x>=split?RED:fg(.92);g.fillRect(x0+x*cell,y0+y*cell,cell*.8,cell*.8)}return m.cols*cell}
+
+// ---------- 10 · Geass sigil + ゴゴゴ ----------
+function sigil(cx,cy,w){const s=w/600;g.save();g.translate(cx-300*s,cy-190*s);g.scale(s,s);g.fillStyle='#b8262c';
+  g.fill(new Path2D('M300 378L198 292C203 268 209 245 207 222C150 186 58 122 0 0C42 92 152 146 262 182C256 210 248 236 250 262C266 279 284 288 300 292C316 288 334 279 350 262C352 236 344 210 338 182C448 146 558 92 600 0C542 122 450 186 393 222C391 245 397 268 402 292Z'));g.restore();
+  g.font=`600 ${w*.085}px "Big Shoulders Display"`;g.fillStyle=fg(1);g.textAlign='center';g.textBaseline='middle';g.fillText('RB',cx,cy-190*s+237*s);g.textAlign='left'}
+function gogo(x,y,fs,dir=1){const grd=(gx,gy,s)=>{const q=g.createLinearGradient(gx-s/2,gy-s/2,gx+s/2,gy+s/2);q.addColorStop(.08,'#3a1149');q.addColorStop(.45,'#7a2a8f');q.addColorStop(.92,'#c64d93');return q};
+  for(let i=0;i<6;i++){g.save();g.translate(x,y);g.transform(1,0,-.25,1,0,0);g.rotate(-.06);g.font=`400 ${fs}px "Dela Gothic One"`;g.textAlign='center';g.textBaseline='middle';
+    g.lineWidth=fs*.08;g.strokeStyle='#24082d';g.lineJoin='round';g.strokeText('ゴ',0,0);g.fillStyle=grd(0,0,fs);g.fillText('ゴ',0,0);g.restore();
+    x+=dir*fs*(i%2?-.35:.55);y+=fs*.82;fs*=.8}}
+
+// ---------- the ten ----------
+const variants={
+  1:()=>{lattice(1,(x,y)=>x>545&&x<1015&&y>60&&y<345);gauss(560,1000,330);tag('N(μ, σ²) · n = 520',560,350);text()},
+  2:()=>{lattice(1,(x,y)=>x>1120);portrait(1330,8,388);text({side:'l',x:560,fs:96})},
+  3:()=>{lattice();meter(560,120,500,150,'1.048596');tag('Divergence meter · worldline 1.048596',560,300);text()},
+  4:()=>{lattice(1,(x,y)=>Math.hypot(x-790,y-198)<158);tyre(790,198,150,4);[0,1,2].forEach(i=>{g.fillStyle=RED;g.beginPath();g.arc(990,140+i*34,9,0,7);g.fill()});tag('Pit stop · record 1.80 s',560,368);text()},
+  5:()=>{lattice(.6);network(540,1060,90,300);text()},
+  6:()=>{lattice(1,(x,y)=>Math.hypot(x-800,y-200)<190);globe(800,200,175);tag('19.13°N · 72.92°E',560,368);text()},
+  7:()=>{lattice();route(540,1060,200);tag('Expected route',540,222);tag('Route taken',1060,232,'right');text()},
+  8:()=>{lattice();const T=[['bars','LLM evaluation'],['graph','Hallucination graphs'],['grid','BLADE'],['flow','System dynamics'],['wave','Telemetry']];
+    const tw=170,th=118;T.forEach(([k,l],i)=>{const row=i<3?0:1,col=row?i-3:i;tile(k,520+col*(tw+10)+(row?(tw+10)/2:0),46+row*(th+12),tw,th,l,i===0)});text({fs:96})},
+  9:()=>{lattice();const w=dotName('RUCHIR BARHATE',520,64,46,1010,7);   // BARHATE in redg.fillStyle=RED;g.fillRect(520,320,40,3);
+    const d=document.createElement('div');d.className='txt l';d.style.setProperty('--x','520px');d.style.top='auto';d.style.bottom='34px';d.style.transform='none';
+    d.innerHTML='<div class="lbl" style="font-size:15px"><b>Off the path, on course</b> · IEOR, IIT Bombay · Optimization · Statistics · Machine Learning</div>';B.append(d)},
+  10:()=>{lattice();sigil(800,198,330);gogo(1000,90,58);text()},
+  11:()=>{lattice();route(540,1060,200);tag('Expected route',540,222);tag('Route taken',1060,232,'right');text()},
+};
+(variants[V]||variants[1])();
+document.body.dataset.ready='1';
+})();
+</script>
+</body>
+</html>

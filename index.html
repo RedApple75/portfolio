@@ -1,47 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ruchir Barhate — IEOR, IIT Bombay</title>
+<script>try{const t=localStorage.getItem('rb-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Geist+Mono:wght@400;500&family=Geist:wght@300..600&family=Unbounded:wght@800;900&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 <div class="cur-ring" id="ring"><span id="ringLabel"></span></div><div class="cur-dot" id="dot"></div>
 
 <header>
   <nav aria-label="Navigation">
     <a class="brand" href="#top">Ruchir<i>.</i>Barhate</a>
-    <ul class="navlist l"><li><a href="#about" data-nav="about"><small>01</small>About</a></li><li><a href="#projects" data-nav="projects"><small>02</small>Projects</a></li></ul>
-    <a data-magnetic class="monogram" href="#top" aria-label="RB — Home">RB</a>
-    <ul class="navlist r"><li><a href="#lab" data-nav="lab"><small>03</small>Lab</a></li><li><a href="#contact" data-nav="contact"><small>04</small>Contact</a></li></ul>
-    <div class="hdr-right"></div>
+    <ul class="navlist l"><li><a href="#about" data-nav="about"><small>01</small>About</a></li><li><a href="#experience" data-nav="experience"><small>02</small>Experience</a></li></ul>
+    <a data-magnetic class="monogram geass" href="#top" aria-label="RB — Home"><svg class="sigil" viewBox="0 0 600 380" aria-hidden="true"><path d="M300 378L198 292C203 268 209 245 207 222C150 186 58 122 0 0C42 92 152 146 262 182C256 210 248 236 250 262C266 279 284 288 300 292C316 288 334 279 350 262C352 236 344 210 338 182C448 146 558 92 600 0C542 122 450 186 393 222C391 245 397 268 402 292Z"/></svg><span>RB</span></a>
+    <ul class="navlist r"><li><a href="#projects" data-nav="projects"><small>03</small>Projects</a></li><li><a href="#contact" data-nav="contact"><small>04</small>Contact</a></li></ul>
+    <div class="hdr-right"><button class="mode" id="mode" type="button" aria-label="Switch colour mode"><span class="sw"><i></i></span><span class="label" id="modeLabel">Dark</span></button></div>
   </nav>
 </header>
 
 <main id="top">
 <!-- ================= HERO ================= -->
 <section class="hero grain">
-  <canvas id="tyre" aria-hidden="true"></canvas>
   <canvas id="face" aria-hidden="true"></canvas>
-  <div class="shade1"></div><div class="shade2"></div>
   <div class="hero-inner">
-    <a data-magnetic class="pill" href="#contact"><span class="mk">RB</span><span class="t">Open to research internships — Summer 2027</span><span class="w">Write</span><span>→</span></a>
-    <div class="infobar">
-      <div>Ruchir<span>Barhate</span></div>
-      <div>Mumbai<span>Maharashtra, India</span></div>
-      <div>IEOR Undergraduate<span>Optimization • Statistics • ML</span></div>
-      <div>Local time<span class="clock" id="clock">--:--</span></div>
-    </div>
     <div class="hero-mid">
       <div>
         <div class="status label"><i></i>[ <b>03</b> ] · Third year · IIT Bombay</div>
         <h1 class="big h-title" data-prox="250,800,300">
-          <span class="reveal"><span>Modelling</span></span>
-          <span class="reveal ol"><span>Decisions</span></span>
-          <span class="reveal"><span>Under Uncertainty</span></span>
+          <span class="reveal"><span>Off the path,</span></span>
+          <span class="reveal ol"><span>on course</span></span>
         </h1>
       </div>
     </div>
@@ -50,106 +43,112 @@
   </div>
 </section>
 
-<!-- ================= MARQUEE ================= -->
-<section class="marquee" aria-label="Optimize, estimate, evaluate">
-  <div class="mq-track" id="mq"></div>
-  <p class="label">Mathematics in service of real decisions.</p>
-</section>
-
 <!-- ================= ABOUT ================= -->
 <section id="about">
   <div class="sec-head section-pad">
     <div class="label">[ <b>01</b> / 04 ] · About</div>
     <h2 class="big"><span class="reveal"><span>From theory to decisions</span></span></h2>
+    <button data-magnetic class="expand" type="button" data-expand="about">Expand <span>↗</span></button>
   </div>
   <div class="about-grid">
+    <!-- placeholder copy: Ruchir will supply the final text -->
     <div class="body-copy fade">
       <p class="lead">Third-year Industrial Engineering &amp; Operations Research undergraduate at IIT Bombay, <em>ranked second in the department</em>, minoring in Statistics and CMInDS.</p>
       <p>My work sits where optimization meets data. I like problems that start as a messy real-world question and end as a model you can trust — whether that is a mixed-integer program, a stochastic process or a neural network.</p>
       <p>At CSALT, with Prof. Preethi Jyothi, I research fair evaluation of large language models across Indian languages. I have also built graph-based hallucination detectors, trained binarised neural networks with integer programming, and written telemetry firmware for the IITB Rocket Team.</p>
-      <p>Outside research I teach — as a TA for Probability, Calculus and Optimization — and represent IEOR's undergraduates as the department's UG Representative.</p>
+      <p>Outside research I teach — as a teaching assistant for Probability, Calculus and Optimization — and represent IEOR's undergraduates as the department's Undergraduate Representative.</p>
     </div>
     <aside class="profile crosshair fade">
       <div class="label">Profile</div>
       <dl>
-        <dt>Based in</dt><dd>Mumbai, IN</dd>
-        <dt>Program</dt><dd>B.Tech IEOR</dd>
+        <dt>Based in</dt><dd>Mumbai, India</dd>
+        <dt>Program</dt><dd>B.Tech, IEOR</dd>
         <dt>At</dt><dd>IIT Bombay</dd>
         <dt>Lab</dt><dd>CSALT</dd>
-        <dt>Focus</dt><dd>Optim · Stats · ML</dd>
+        <dt>Focus</dt><dd>Optimization · Statistics · Machine Learning</dd>
+        <dt>CPI</dt><dd>9.73 / 10</dd>
+        <dt>Rank</dt><dd>2nd in department</dd>
       </dl>
       <a data-magnetic class="btn solid" href="#">View resume <span>→</span></a>
       <a data-magnetic class="btn" href="#">Download resume <span class="label">PDF ↓</span></a>
     </aside>
   </div>
+</section>
 
-  <!-- stat block: replaces the original's dotted globe -->
-  <div class="stat" id="stat">
-    <div class="fade">
-      <div class="label">[ Record ] · IEOR, IIT Bombay</div>
-      <div class="num"><span id="cpi">0.00</span><small>CPI</small></div>
-      <div class="rule"></div>
-      <div class="ends">
-        <div>Department rank<br><span>02 · IEOR</span></div>
-        <div>Minors<br><span>Statistics · CMInDS</span></div>
-      </div>
-      <p class="small">Teaching assistant for Probability, Calculus and Optimization. Avionics on the IITB Rocket Team. Research on language models at CSALT.</p>
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience">
+  <div class="xp-head section-pad">
+    <div class="label">[ <b>02</b> / 04 ] · Experience</div>
+    <h2 class="big"><span class="reveal"><span>Where I've</span></span><span class="reveal ol"><span>worked</span></span></h2>
+    <div class="xp-side"><p class="label xp-count"><b>04</b> roles · 2024 — now</p><button data-magnetic class="expand" type="button" data-expand="experience">Expand <span>↗</span></button></div>
+  </div>
+  <ol class="xp-list">
+    <li class="xp-row fade">
+      <span class="xp-i">01</span>
+      <div class="xp-main"><h3>Data Analyst Intern</h3><div class="xp-org">American Express</div></div>
+      <div class="xp-when"><span class="chip live"><i></i>Incoming</span></div>
+      <div class="xp-more"><p>Add a line about the team and the problem once you start.</p><div class="tags"><span class="tag">Analytics</span><span class="tag">SQL</span></div></div>
+    </li>
+    <li class="xp-row fade">
+      <span class="xp-i">02</span>
+      <div class="xp-main"><h3>AI / ML Intern</h3><div class="xp-org">Alpha Alternatives</div></div>
+      <div class="xp-when"><span class="chip live"><i></i>Incoming</span><span class="label">Winter 2026</span></div>
+      <div class="xp-more"><p>Winter internship in an AI and machine-learning role. Replace with what you built.</p><div class="tags"><span class="tag">Machine learning</span><span class="tag">Python</span></div></div>
+    </li>
+    <li class="xp-row fade">
+      <span class="xp-i">03</span>
+      <div class="xp-main"><h3>Undergraduate Researcher</h3><div class="xp-org">CSALT, IIT Bombay</div></div>
+      <div class="xp-when"><span class="chip on">Ongoing</span><span class="label">Jul 2026 — present</span></div>
+      <div class="xp-more"><p>Fair evaluation of large language models on Indian languages, with Prof. Preethi Jyothi.</p><div class="tags"><span class="tag">LLM evaluation</span><span class="tag">Multilingual NLP</span><span class="tag">High-performance computing</span></div></div>
+    </li>
+    <li class="xp-row fade">
+      <span class="xp-i">04</span>
+      <div class="xp-main"><h3>Avionics Engineer</h3><div class="xp-org">IITB Rocket Team</div></div>
+      <div class="xp-when"><span class="chip">Completed</span><span class="label">Oct 2024 — Aug 2026</span></div>
+      <div class="xp-more"><p>Telemetry and flight electronics — the data link from flight computer to ground station.</p><div class="tags"><span class="tag">Embedded systems</span><span class="tag">Telemetry</span></div></div>
+    </li>
+  </ol>
+  <div class="edu section-pad">
+    <div class="label">Education &amp; roles</div>
+    <div class="cards">
+      <div class="card fade"><div class="label">2024 – 2028</div><h4>B.Tech, IEOR</h4><p>IIT Bombay<br>Department rank 2</p></div>
+      <div class="card fade"><div class="label">Minors</div><h4>Statistics · CMInDS</h4><p>IIT Bombay<br>Dual minor</p></div>
+      <div class="card fade"><div class="label">Roles</div><h4>Undergraduate Representative · Teaching Assistant</h4><p>B.Tech IEOR representative<br>Teaching assistant: Probability, Calculus, Optimization</p></div>
     </div>
-    <canvas id="tyre2" aria-hidden="true"></canvas>
+  </div>
+
+  <!-- record + skills -->
+<!-- divergence meter + the tyre (click it: pit stop) -->
+  <div class="stat" id="stat">
+    <div class="dm fade">
+      <div class="label">[ Worldline ] · Divergence meter</div>
+      <canvas id="nixie" aria-label="Divergence meter cycling through numbers about Ruchir" role="img" data-cursor="Next"></canvas>
+      <p class="dm-cap label" id="dmCap" data-hint="Hover to read · click for the next worldline">Hover to read · click for the next worldline</p>
+    </div>
+    <div class="tyre-wrap"><canvas id="tyre2" aria-label="Tyre — click for a pit stop" role="button" data-cursor="Pit stop"></canvas></div>
   </div>
 
   <div class="skills">
     <div class="top"><h2 class="big" style="font-size:clamp(50px,6vw,96px)"><span class="reveal"><span>Skills</span></span></h2><span class="label">Stack · <b id="stackn">0</b></span></div>
     <div class="grid">
-      <div class="cell crosshair"><header><span class="mono">Optimization &amp; OR</span><span class="label">01</span></header>
+      <div class="cell crosshair"><header><span class="mono">Optimization &amp; Operations Research</span><span class="label">01</span></header>
         <div class="tags"><span class="tag">Linear programming</span><span class="tag">Mixed-integer programming</span><span class="tag">Stochastic processes</span><span class="tag">Markov chains</span><span class="tag">Simulation</span><span class="tag">AnyLogic</span><span class="tag">System dynamics</span><span class="tag">Gurobi</span></div></div>
-      <div class="cell"><header><span class="mono">Statistics &amp; ML</span><span class="label">02</span></header>
+      <div class="cell"><header><span class="mono">Statistics &amp; Machine Learning</span><span class="label">02</span></header>
         <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">Statistical inference</span><span class="tag">LLM evaluation</span><span class="tag">LoRA</span><span class="tag">Graph methods</span><span class="tag">NumPy</span><span class="tag">pandas</span></div></div>
       <div class="cell crosshair"><header><span class="mono">Systems &amp; Tools</span><span class="label">03</span></header>
         <div class="tags"><span class="tag">C / C++</span><span class="tag">Embedded telemetry</span><span class="tag">Linux</span><span class="tag">HPC / Slurm</span><span class="tag">Git</span><span class="tag">SQL</span><span class="tag">LaTeX</span><span class="tag">Figma</span></div></div>
-    </div>
-  </div>
-
-  <div class="xp">
-    <h2 class="big"><span class="reveal"><span>Experience</span></span></h2>
-    <div class="xp-row fade"><div class="label">#1 · Incoming</div><div><h3>Data Analyst Intern</h3><div class="label">American Express</div></div><div><p>Add a line about the team and the problem once you start.</p><div class="tags"><span class="tag">Analytics</span><span class="tag">SQL</span></div></div></div>
-    <div class="xp-row fade"><div class="label">#2 · Winter 2026</div><div><h3>AI / ML Intern</h3><div class="label">Alpha Alternatives</div></div><div><p>Winter internship in an AI/ML role. Replace with what you built.</p><div class="tags"><span class="tag">Machine learning</span><span class="tag">Python</span></div></div></div>
-    <div class="xp-row fade"><div class="label">#3 · Ongoing</div><div><h3>Undergraduate Researcher</h3><div class="label">CSALT, IIT Bombay</div></div><div><p>Fair evaluation of large language models on Indian languages, with Prof. Preethi Jyothi.</p><div class="tags"><span class="tag">LLM evaluation</span><span class="tag">Multilingual NLP</span><span class="tag">HPC</span></div></div></div>
-    <div class="xp-row fade"><div class="label">#4 · Ongoing</div><div><h3>Avionics Engineer</h3><div class="label">IITB Rocket Team</div></div><div><p>Telemetry and flight electronics — data link from flight computer to ground.</p><div class="tags"><span class="tag">Embedded</span><span class="tag">Telemetry</span></div></div></div>
-    <div class="edu">
-      <div class="label">Education &amp; roles</div>
-      <div class="cards">
-        <div class="card fade"><div class="label">2024 – 2028</div><h4>B.Tech, IEOR</h4><p>IIT Bombay<br>Department rank 2</p></div>
-        <div class="card fade"><div class="label">Minors</div><h4>Statistics · CMInDS</h4><p>IIT Bombay<br>Dual minor</p></div>
-        <div class="card fade"><div class="label">Roles</div><h4>UG Rep · Teaching Assistant</h4><p>B.Tech IEOR representative<br>TA: Probability, Calculus, Optimization</p></div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= PROJECTS ================= -->
 <section id="projects">
-  <div class="pin"><div class="ptrack" id="ptrack">
-    <div class="pintro">
-      <div class="label">[ <b>02</b> / 04 ] · Work</div>
-      <h2 class="big">Selected<br>Projects</h2>
-      <p>Research, models and systems — formulated, built and tested end to end.</p>
-      <div class="foot"><span class="label">Scroll →</span><span class="label" id="pcount">01 / 05</span></div>
-    </div>
-  </div></div>
-</section>
-
-<!-- ================= LAB ================= -->
-<section id="lab">
-  <div class="lab-row">
-    <div><div class="label">[ <b>03</b> / 04 ] · Lab</div><h2 class="big" style="margin-top:14px"><span class="reveal"><span>The site, taken apart.</span></span></h2></div>
-    <span class="label">03 experiments · built with canvas</span>
+  <div class="proj-head section-pad">
+    <div class="label">[ <b>03</b> / 04 ] · Projects</div>
+    <h2 class="big"><span class="reveal"><span>Selected projects</span></span></h2>
+    <div class="proj-side"><p>Research, models and systems — formulated, built and tested end to end.</p><button data-magnetic class="expand" type="button" data-expand="projects">Expand <span>↗</span></button></div>
   </div>
-  <div class="lab-links">
-    <a href="#top"><b>DitherTyre</b><span class="label">Canvas →</span></a>
-    <a href="#footer"><b>Ridgeline</b><span class="label">Canvas →</span></a>
-    <a href="#stat"><b>Counting CPI</b><span class="label">Easter egg →</span></a>
-  </div>
+  <div class="pgrid" id="pgrid"></div>
 </section>
 
 <!-- ================= CONTACT ================= -->
@@ -194,8 +193,14 @@
 </footer>
 <a data-magnetic class="totop" id="totop" href="#top" aria-label="Back to top">↑</a>
 
+<!-- expanded section pages open in this layer; the pixels of the page fly into it -->
+<div class="layer" id="layer" data-lenis-prevent aria-hidden="true">
+  <div class="layer-bar"><button data-magnetic class="back" id="back" type="button">← Back</button><span class="label" id="layerTitle"></span><span class="label esc">Esc to close</span></div>
+  <div class="layer-body" id="layerBody"></div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="face-data.js"></script>
-<script src="script.js"></script>
+<script src="face-data.js?v=3"></script>
+<script src="script.js?v=10"></script>
 </body>
 </html>
