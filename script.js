@@ -73,10 +73,10 @@ document.querySelectorAll('.big:not([data-prox])').forEach(el=>proximity(el,{min
 
 /* counters */
 const count=(el,to,dec,dur=1600)=>{const t0=performance.now();const f=t=>{const p=clamp((t-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=(to*e).toFixed(dec);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
-new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){count($('#stackn'),document.querySelectorAll('.skills .tag').length,0,900);o.disconnect()}}),{threshold:.3}).observe($('.skills'));
+if($('.skills'))new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){count($('#stackn'),document.querySelectorAll('.skills .tag').length,0,900);o.disconnect()}}),{threshold:.3}).observe($('.skills'));
 
 /* nav active state + to-top */
-const secs=['about','experience','projects','contact'].map(id=>document.getElementById(id));
+const secs=['about','experience','projects','contact'].map(id=>document.getElementById(id)).filter(Boolean);
 addEventListener('scroll',()=>{
   const y=scrollY+innerHeight*.35;let cur='';secs.forEach(s=>{if(s.offsetTop<=y)cur=s.id});
   document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===cur));
@@ -221,6 +221,9 @@ function makeTyre(canvas,{centered=false,scrollLinked=true,shape=true,bg=1,fadeO
     st.hover+=.04*(st.hoverT-st.hover);st.intro+=.035*(1-st.intro);st.scroll=scrollP();draw()})(t0);
 }
 makeTyre($('#bg'),{shape:false,bg:.55,scrollLinked:false,fadeOut:true});   // site-wide lattice, dimmed so content reads
+
+// the resume page shares everything above (mode, cursor, scroll, reveals, the lattice) and nothing below
+if(document.body.dataset.page==='resume')return;
 makeTyre($('#tyre2'),{centered:true,scrollLinked:false,bg:0,game:true}); // the tyre alone, over the shared lattice; click it for a pit stop
 
 /* =====================================================================
